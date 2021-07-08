@@ -13,24 +13,16 @@
  */
 ?>
 <!-- This file should primarily consist of HTML with a little bit of PHP. -->
-<div class="wrap">
+<div class="wrap wc-office-store-setting">
 	<div id="icon-themes" class="icon32"></div>  
-	<h2>Settings Page Settings</h2>  
+	<h2>Cài đặt Plugin "Woocommerce Office Stores Support Plugin"</h2>  
 		<!--NEED THE settings_errors below so that the errors/success messages are shown after submission - wasn't working once we started using add_menu_page and stopped using add_options_page so needed this-->
 	<?php settings_errors(); ?>  
-	<form method="POST" action="options.php">
-
+	<form method="POST" action="options.php">  
 		<?php 
 			settings_fields( 'Wc_Office_store_general_settings' );
-			do_settings_sections('Wc_Office_store_general_settings'); 
-
-			settings_fields( 'section_1_callback' );
-			do_settings_sections( 'section_1_callback'); 
-
-			settings_fields( 'section_2_callback' );
-			do_settings_sections( 'section_2_callback'); 
+			do_settings_sections( 'Wc_Office_store_general_settings'); 
 		?>             
-	
 		<?php submit_button(); ?>  
 	</form> 
 </div>

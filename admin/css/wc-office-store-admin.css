@@ -2,3 +2,203 @@
  * All of the CSS for your admin-specific functionality should be
  * included in this file.
  */
+
+
+/*! ========================================================================
+ * Bootstrap Toggle: bootstrap-toggle.css v2.2.0
+ * http://www.bootstraptoggle.com
+ * ========================================================================
+ * Copyright 2014 Min Hur, The New York Times Company
+ * Licensed under MIT
+ * ======================================================================== */
+
+.wc-office-store-setting .btn {
+    font-size: 14px;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    display: inline-block;
+    text-decoration: none;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.wc-office-store-setting .btn:focus,
+.wc-office-store-setting .btn:active:focus {
+    outline: thin dotted;
+    outline: 5px auto -webkit-focus-ring-color;
+    outline-offset: -2px;
+}
+
+.wc-office-store-setting .btn:hover,
+.wc-office-store-setting .btn:focus {
+    color: #333;
+    text-decoration: none;
+}
+
+.wc-office-store-setting .btn:active {
+    background-image: none;
+    outline: 0;
+    -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+}
+
+.wc-office-store-setting .btn-primary {
+    color: #fff !important;
+    background-color: #3071a9 !important;
+    border-color: #285e8e !important;
+}
+
+.wc-office-store-setting .btn-default {
+    color: #333 !important;
+    background-color: #fff !important;
+    border-color: #ccc !important;
+}
+
+.wc-office-store-setting .btn-default:focus {
+    color: #333;
+    background-color: #e6e6e6;
+    border-color: #8c8c8c;
+}
+
+.wc-office-store-setting .btn-default:hover {
+    color: #333;
+    background-color: #e6e6e6;
+    border-color: #adadad;
+}
+
+.wc-office-store-setting .btn-default:active {
+    color: #333;
+    background-color: #e6e6e6;
+    border-color: #adadad;
+}
+
+.wc-office-store-setting .checkbox label .toggle,
+.wc-office-store-setting .checkbox-inline .toggle {
+    margin-left: -20px;
+    margin-right: 5px;
+}
+
+.wc-office-store-setting .toggle {
+    height: 20px !important;
+    position: relative;
+    overflow: hidden;
+}
+
+.wc-office-store-setting .toggle.btn {
+    min-width: 59px;
+    min-height: 20px;
+}
+
+.wc-office-store-setting .toggle input[type="checkbox"] {
+    display: none;
+}
+
+.wc-office-store-setting .toggle-group {
+    position: absolute;
+    width: 200%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    transition: left 0.35s;
+    -webkit-transition: left 0.35s;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+}
+
+.wc-office-store-setting .toggle.off .toggle-group {
+    left: -100%;
+}
+
+.wc-office-store-setting .toggle-on {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 50%;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+}
+
+.wc-office-store-setting .toggle-off {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    right: 0;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+}
+
+.wc-office-store-setting .toggle-handle {
+    position: relative;
+    margin: 0 auto;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    height: 100%;
+    width: 0px;
+    border-width: 0 1px;
+}
+
+.wc-office-store-setting .toggle-on.btn {
+    padding-right: 24px;
+}
+
+.wc-office-store-setting .toggle-off.btn {
+    padding-left: 24px;
+}
+
+.wc-office-store-setting .toggle.btn-lg {
+    min-width: 79px;
+    min-height: 45px;
+}
+
+.wc-office-store-setting .toggle-on.btn-lg {
+    padding-right: 31px;
+}
+
+.wc-office-store-setting .toggle-off.btn-lg {
+    padding-left: 31px;
+}
+
+.wc-office-store-setting .toggle-handle.btn-lg {
+    width: 40px;
+}
+
+.wc-office-store-setting .toggle.btn-sm {
+    min-width: 50px;
+    min-height: 30px;
+}
+
+.wc-office-store-setting .toggle-on.btn-sm {
+    padding-right: 20px;
+}
+
+.wc-office-store-setting .toggle-off.btn-sm {
+    padding-left: 20px;
+}
+
+.wc-office-store-setting .toggle.btn-xs {
+    min-width: 35px;
+    min-height: 22px;
+}
+
+.wc-office-store-setting .toggle-on.btn-xs {
+    padding-right: 12px;
+}
+
+.wc-office-store-setting .toggle-off.btn-xs {
+    padding-left: 12px;
+}

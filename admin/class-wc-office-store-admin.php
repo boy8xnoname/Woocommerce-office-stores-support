@@ -79,6 +79,7 @@ class Wc_Office_store_Admin {
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/wc-office-store-admin.css', array(), $this->version, 'all' );
 
 	}
+	
 
 	/**
 	 * Register the JavaScript for the admin area.
@@ -86,6 +87,7 @@ class Wc_Office_store_Admin {
 	 * @since    1.0.0
 	 */
 	public function enqueue_scripts() {
+		wp_enqueue_script( $this->plugin_name.'bootstrap-toggle', plugin_dir_url( __FILE__ ) . 'js/bootstrap-toggle.min.js', array( 'jquery' ), $this->version, false );
 
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wc-office-store-admin.js', array( 'jquery' ), $this->version, false );
 
@@ -98,7 +100,7 @@ class Wc_Office_store_Admin {
 			'administrator', 
 			$this->plugin_name, 
 			array( $this, 'displayPluginAdminDashboard' ),
-			'dashicons-chart-area', 
+			'dashicons-superhero', 
 			26 
 		);
 
@@ -156,7 +158,7 @@ class Wc_Office_store_Admin {
 			$message,
 			$type
 		);
-}
+	}
 	public function registerAndBuildFields() {
 		
 		add_settings_section(
@@ -165,7 +167,8 @@ class Wc_Office_store_Admin {
 			// Title to be displayed on the administration page
 			'',  
 			// Callback used to render the description of the section
-			array( $this, 'Wc_Office_store_display_general_account' ),    
+			'',  
+			// array( $this, 'Wc_Office_store_display_general_account' ),    
 			// Page on which to add this section of options
 			'Wc_Office_store_general_settings'                   
 		);
@@ -189,25 +192,47 @@ class Wc_Office_store_Admin {
 			$args
 		);
 
-		unset($args_select);
-		$args_select =  array (
+
+		unset($args_suggest_product);
+		$args_suggest_product =  array (
 			'type'      => 'input',
 			'subtype'   => 'checkbox',
-			'title' => 'Hiện các menu trong admin',
-			'id'    => 'our_third_field',
-			'name'      => 'our_third_field',
+			'title' => '',
+			'id'    => 'wc_suggest_product',
+			'name'      => 'wc_suggest_product',
 			'required' => 'true',
 			'get_options_list' => '',
 			'value_type'=>'normal',
 			'wp_data' => 'option'
 		);
 		add_settings_field(
-			'our_third_field',
-			'Example Setting',
+			'wc_suggest_product',
+			'Bật chức năng gợi ý sản phẩm',
 			array( $this, 'Wc_Office_store_render_settings_field' ),
 			'Wc_Office_store_general_settings',
 			'Wc_Office_store_general_section',
-			$args_select
+			$args_suggest_product
+		);
+
+		unset($args_group_product);
+		$args_group_product =  array (
+			'type'      => 'input',
+			'subtype'   => 'checkbox',
+			'title' => '',
+			'id'    => 'wc_group_product',
+			'name'      => 'wc_group_product',
+			'required' => 'true',
+			'get_options_list' => '',
+			'value_type'=>'normal',
+			'wp_data' => 'option'
+		);
+		add_settings_field(
+			'wc_group_product',
+			'Bật chức năng show Group',
+			array( $this, 'Wc_Office_store_render_settings_field' ),
+			'Wc_Office_store_general_settings',
+			'Wc_Office_store_general_section',
+			$args_group_product
 		);
 
 
@@ -215,10 +240,14 @@ class Wc_Office_store_Admin {
 			'Wc_Office_store_general_settings',
 			'Wc_Office_store_example_setting'
 		);
+		register_setting(
+			'Wc_Office_store_general_settings',
+			'wc_suggest_product'
+		);	
 
 		register_setting(
 			'Wc_Office_store_general_settings',
-			'our_third_field'
+			'wc_group_product'
 		);
 	}
 

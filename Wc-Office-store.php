@@ -37,9 +37,10 @@ if ( ! defined( 'WPINC' ) ) {
  */
 define( 'Wc_Office_store_VERSION', '1.0.0' );
 
-if ( class_exists( 'WooCommerce' ) ) {
-	
-	/**
+include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+if ( is_plugin_active( 'woocommerce/woocommerce.php') ) {
+  // Do what you want in case woocommerce is installed
+  /**
 	 * The code that runs during plugin activation.
 	 * This action is documented in includes/class-wc-office-store-activator.php
 	 */
@@ -81,14 +82,18 @@ if ( class_exists( 'WooCommerce' ) ) {
 	 * @since    1.0.0
 	 */
 	function run_Wc_Office_store() {
-
 		$plugin = new Wc_Office_store();
 		$plugin->run();
 
 	}
 	run_Wc_Office_store();
-
 } else {
-	//   more code
+	// show admin notice if WooCommerce is not activated
+	function Wc_Office_store_admin_notice(){ ?>
+		<div class="notice notice-error is-dismissible">
+			<p><b>WooCommerce</b> is not activated, please activate it to use <b>Woocommerce Office Stores Support Plugin</b></p>
+		</div>
+	<?php
+	}
+	add_action('admin_notices', 'Wc_Office_store_admin_notice');
 }
-
