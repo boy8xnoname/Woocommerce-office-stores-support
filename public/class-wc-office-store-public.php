@@ -52,6 +52,8 @@ class Wc_Office_store_Public {
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
 
+		add_action('woocommerce_before_add_to_cart_form', array($this,'singleProductGroupUpSell'));
+
 	}
 
 	/**
@@ -98,6 +100,11 @@ class Wc_Office_store_Public {
 
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wc-office-store-public.js', array( 'jquery' ), $this->version, false );
 
+	}
+
+	public function singleProductGroupUpSell() {
+		global $product;
+		echo Wc_Office_store_Group_Product::showUpsellProductToSummaryContent();
 	}
 
 }

@@ -30,8 +30,7 @@ class Wc_Office_store_Activator {
 	 * @since    1.0.0
 	 */
 	public static function activate() {
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/functions/function.show-group-product-on-summary-block.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/functions/function.suggest-product-upsell-checkout.php';
+	
 	}
 
 }
