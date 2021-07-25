@@ -1,32 +1,9 @@
 <?php
+// If this file is called directly, abort.
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
 
-/**
- * The file that defines the core plugin class
- *
- * A class definition that includes attributes and functions used across both the
- * public-facing side of the site and the admin area.
- *
- * @link       https://www.wplauncher.com
- * @since      1.0.0
- *
- * @package    Wc_Office_store
- * @subpackage Wc_Office_store/includes
- */
-
-/**
- * The core plugin class.
- *
- * This is used to define internationalization, admin-specific hooks, and
- * public-facing site hooks.
- *
- * Also maintains the unique identifier of this plugin as well as the current
- * version of the plugin.
- *
- * @since      1.0.0
- * @package    Wc_Office_store
- * @subpackage Wc_Office_store/includes
- * @author     Ben Shadle <benshadle@gmail.com>
- */
 class Wc_Office_store {
 
 	/**
@@ -78,11 +55,12 @@ class Wc_Office_store {
 		$this->set_locale();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
-
+		// Filter product by price ranger
+		$this->run_woocommerce_price_filter();
+		// Show product by Group Upsel on Sumary content
 		$this->run_Wc_Office_store_Group_Product();
-
-
-
+		// Show suggest product upsell on checkout
+		$this->run_suggest_product_upsell_checkout();
 	}
 
 	/**
@@ -179,20 +157,20 @@ class Wc_Office_store {
 
 	}
 
-
-
-
-	private function run_Wc_Office_store_Group_Product() {
-
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/functions/function.show-group-product-on-summary-block.php';
-		// require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/functions/function.suggest-product-upsell-checkout.php';
-
-		new Wc_Office_store_Group_Product();
+	private function run_woocommerce_price_filter() {
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/functions/function.woocommerce-price-filter.php';
 
 	}
 
+	private function run_Wc_Office_store_Group_Product() {
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/functions/function.show-group-product-on-summary-block.php';
+		new Wc_Office_store_Group_Product();
+	}
 
-
+	private function run_suggest_product_upsell_checkout() {
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/functions/function.suggest-product-upsell-checkout.php';
+		new WC_suggest_product_upsell_checkout();
+	}
 
 	/**
 	 * Run the loader to execute all of the hooks with WordPress.

@@ -36,6 +36,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Rename this for your plugin and update it as you release new versions.
  */
 define( 'Wc_Office_store_VERSION', '1.0.0' );
+define( 'WC_OFFICE_STORE_DIR', plugin_dir_path( __FILE__ ) );
 
 include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 if ( is_plugin_active( 'woocommerce/woocommerce.php') ) {

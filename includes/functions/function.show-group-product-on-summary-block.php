@@ -1,32 +1,16 @@
 <?php
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
+
 class Wc_Office_store_Group_Product
 {
-    /**
-	 * The loader that's responsible for maintaining and registering all hooks that power
-	 * the plugin.
-	 *
-	 * @since    1.0.0
-	 * @access   protected
-	 * @var      Wc_Office_store_Loader    $loader    Maintains and registers all hooks for the plugin.
-	 */
+    
 	protected $loader;
 
-	/**
-	 * The unique identifier of this plugin.
-	 *
-	 * @since    1.0.0
-	 * @access   protected
-	 * @var      string    $plugin_name    The string used to uniquely identify this plugin.
-	 */
+
 	protected $plugin_name;
 
-	/**
-	 * The current version of the plugin.
-	 *
-	 * @since    1.0.0
-	 * @access   protected
-	 * @var      string    $version    The current version of the plugin.
-	 */
 	protected $version;
 
     public function __construct()
@@ -45,7 +29,8 @@ class Wc_Office_store_Group_Product
         $upsell_ids[] = $product_id;
         
         if ( $upsell_ids && count($upsell_ids) >= 2 ) :
-                echo '<h2>'. esc_html('Sản phẩm cùng nhóm'). '</h2>';
+            echo '<div class="group-product-upsell">';     
+                echo '<h3 class="tuy-chon-san-pham-title">'. esc_html('Sản phẩm cùng nhóm'). '</h3>';
 
                 echo '<ul class="tuy-chon-san-pham">';
                     woocommerce_product_loop_start();
@@ -54,22 +39,28 @@ class Wc_Office_store_Group_Product
                             if ($upsell_item == $product_id) {
                                 $currentItemClass = "active";
                             }
-                            $upsell_product = new WC_Product( $upsell_item );
+                            $productObject = new WC_Product( $upsell_item  );
+                            $productSKU = $productObject->get_sku();
+
                             echo '<li class="san-pham-list '. $currentItemClass .'">';
-                                echo '<a href="">';
+                                echo '<a href="'.esc_url( get_permalink( $upsell_item ) ).'">';
                                     // wc_get_template_part( 'content', 'product' );
-                                    the_title('<span class="config-name product-title">', '</span>', $upsell_item);
-                                    echo '<span class="config-price">'.$upsell_product->get_price_html().'</span>';
+                                    if(!empty($productSKU)) {
+                                        echo '<span class="config-name product-SKU">'.$productSKU.'</span>';
+                                    } else { 
+                                        echo '<span class="config-name product-title">'.get_the_title( $upsell_item ).'</span>';
+                                    }
+                                    echo '<span class="config-price">'.$productObject->get_price_html().'</span>';
                                 echo '</a>';
                             echo '</li>';
 
                         endforeach; 
                     woocommerce_product_loop_end(); 
                 echo '</ul>';
+            echo '</div>';
         
         endif;        
         wp_reset_postdata();
-
     }
 }
 ?>
