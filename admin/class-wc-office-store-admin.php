@@ -175,27 +175,49 @@ class Wc_Office_store_Admin {
 			// Page on which to add this section of options
 			'Wc_Office_store_general_settings'                   
 		);
-		unset($args);
-		$args = array (
+		// product_group_title
+		unset($argsGroupTitle);
+		$argsGroupTitle = array (
 			'type'      => 'input',
 			'subtype'   => 'text',
-			'id'    => 'Wc_Office_store_example_setting',
-			'name'      => 'Wc_Office_store_example_setting',
+			'id'    => 'product_group_title',
+			'name'      => 'product_group_title',
 			'required' => 'true',
 			'get_options_list' => '',
 			'value_type'=>'normal',
 			'wp_data' => 'option'
 		);
 		add_settings_field(
-			'Wc_Office_store_example_setting',
-			'Example Setting',
+			'product_group_title',
+			'Tiêu đề product group',
 			array( $this, 'Wc_Office_store_render_settings_field' ),
 			'Wc_Office_store_general_settings',
 			'Wc_Office_store_general_section',
-			$args
+			$argsGroupTitle
 		);
 
+		// checkout_suggest_title
+		unset($argsCheckoutSuggestTitle);
+		$argsCheckoutSuggestTitle = array (
+			'type'      => 'input',
+			'subtype'   => 'text',
+			'id'    => 'checkout_suggest_title',
+			'name'      => 'checkout_suggest_title',
+			'required' => 'true',
+			'get_options_list' => '',
+			'value_type'=>'normal',
+			'wp_data' => 'option'
+		);
+		add_settings_field(
+			'checkout_suggest_title',
+			'Tiêu đề gợi ý sản phẩm ở trang thanh toán',
+			array( $this, 'Wc_Office_store_render_settings_field' ),
+			'Wc_Office_store_general_settings',
+			'Wc_Office_store_general_section',
+			$argsCheckoutSuggestTitle
+		);
 
+		// wc_suggest_product
 		unset($args_suggest_product);
 		$args_suggest_product =  array (
 			'type'      => 'input',
@@ -217,6 +239,7 @@ class Wc_Office_store_Admin {
 			$args_suggest_product
 		);
 
+		// wc_group_product
 		unset($args_group_product);
 		$args_group_product =  array (
 			'type'      => 'input',
@@ -238,10 +261,23 @@ class Wc_Office_store_Admin {
 			$args_group_product
 		);
 
+		// Select type of product	
+		add_settings_field(
+			'select_group_product_data',
+			__( 'Chọn hiển thị Upsell / Crosssell cho Group', 'flowygo' ),
+			array( $this,'Wc_Office_store_render_radio' ),
+			'Wc_Office_store_general_settings',
+			'Wc_Office_store_general_section',
+			array( 'label_for' => 'select_group_product_data' )
+		);
 
 		register_setting(
 			'Wc_Office_store_general_settings',
-			'Wc_Office_store_example_setting'
+			'product_group_title'
+		);
+		register_setting(
+			'Wc_Office_store_general_settings',
+			'checkout_suggest_title'
 		);
 		register_setting(
 			'Wc_Office_store_general_settings',
@@ -252,12 +288,33 @@ class Wc_Office_store_Admin {
 			'Wc_Office_store_general_settings',
 			'wc_group_product'
 		);
+		register_setting(
+			'Wc_Office_store_general_settings',
+			'select_group_product_data'
+		);
 	}
-
+	
 
 	public function Wc_Office_store_display_general_account() {
 		echo '<p>These settings apply to all Plugin Name functionality.</p>';
 	}
+
+	public function  Wc_Office_store_render_radio() {
+		$val = get_option( 'select_group_product_data');
+		?>
+			<fieldset>
+				<label>
+					<input type="radio" name="select_group_product_data" value="up_sell" <?php checked( $val, 'up_sell' ); ?>>
+					<?php _e( 'Up sell', 'Wc_Office' ); ?>
+				</label>
+				<br>
+				<label>
+					<input type="radio" name="select_group_product_data" value="cross_sell" <?php checked( $val, 'cross_sell' ); ?>>
+					<?php _e( 'Cross sell', 'Wc_Office' ); ?>
+				</label>
+			</fieldset>
+		<?php
+	} 
 
 	public function Wc_Office_store_render_settings_field($args) {
 	 

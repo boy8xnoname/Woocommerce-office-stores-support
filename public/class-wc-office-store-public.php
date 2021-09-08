@@ -15,6 +15,8 @@ class Wc_Office_store_Public {
 
 		add_action('woocommerce_before_add_to_cart_form', array($this,'singleProductGroupUpSell'));
 
+		add_action('wc_office_store_hook_under_image', array($this,'singleProductGroupUpSell'));
+
 		add_action('woocommerce_checkout_before_order_review', array($this,'checkoutSuggestProductSell'));
 		// add_action('woocommerce_checkout_before_order_review', array($this,'checkoutSuggestProductSell'));
 	}
@@ -45,12 +47,22 @@ class Wc_Office_store_Public {
 
 	public function singleProductGroupUpSell() {
 		global $product;
+		$enableGroupProduct = !empty(get_option( 'wc_group_product')) ? get_option( 'wc_group_product') : 'off';
+		if($enableGroupProduct != 1) {
+			return;
+		}
+
 		echo Wc_Office_store_Group_Product::showUpsellProductToSummaryContent();
 	}
 
 
 	public function checkoutSuggestProductSell() {
 		global $product;
+		$enableSuggestProduct= !empty(get_option( 'wc_suggest_product')) ? get_option( 'wc_suggest_product') : 'off';
+		if($enableSuggestProduct != 1) {
+			return;
+		}
+
 		echo WC_suggest_product_upsell_checkout::wc_suggest_carousel_products();
 	}
 

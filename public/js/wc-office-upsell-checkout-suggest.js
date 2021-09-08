@@ -17,7 +17,6 @@ var wcUpsellSuggest = {}
     }
 
     wcUpsellSuggest.ProdductCarousel = function() {
-        console.log('do something')
         $('.suggest-carousel-products').slick({
             dots: true,
             infinite: false,

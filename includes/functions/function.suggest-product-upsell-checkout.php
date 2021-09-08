@@ -53,6 +53,7 @@ class WC_suggest_product_upsell_checkout {
         wc_set_loop_prop( 'name', 'up-sells' );
         wc_set_loop_prop( 'columns', apply_filters( 'woocommerce_upsells_columns', isset( $args['columns'] ) ? $args['columns'] : $columns ) );
 
+        $suggestDataTitle = !empty(get_option( 'checkout_suggest_title')) ? get_option( 'checkout_suggest_title') : 'Có thể bạn muốn mua thêm cùng trong đơn hàng này';
         $orderby = apply_filters( 'woocommerce_upsells_orderby', isset( $args['orderby'] ) ? $args['orderby'] : $orderby );
         $_order  = apply_filters( 'woocommerce_upsells_order', isset( $args['order'] ) ? $args['order'] : $order );
         $limit   = apply_filters( 'woocommerce_upsells_total', isset( $args['posts_per_page'] ) ? $args['posts_per_page'] : $limit );
@@ -61,9 +62,9 @@ class WC_suggest_product_upsell_checkout {
         $upsells = wc_products_array_orderby( array_filter( array_map( 'wc_get_product', $upsell_ids ), 'wc_products_array_filter_visible' ), $orderby, $_order );
         $upsells = $limit > 0 ? array_slice( $upsells, 0, $limit ) : $upsells;
 
-        if ( $upsells ) :
+        if ( !empty($upsells) ) :
             echo '<div class="checkout-suggest-products">';
-                echo'<h3 class="suggest-products-title">Có thể bạn muốn mua thêm cùng trong đơn hàng này</h3>';
+                echo'<h3 class="suggest-products-title">'. esc_html($suggestDataTitle). '</h3>';
                 echo '<div class="suggest-products-list">';
                 foreach ( $upsells as $upsell ) { 
                 $productObject = new WC_Product( $upsell  );
@@ -76,7 +77,7 @@ class WC_suggest_product_upsell_checkout {
                             if(!empty($productSKU)) {
                                 echo '<p><span class="config-name product-SKU">'.$productSKU.'</span></p>';
                             } else { 
-                                echo '<p><span class="config-name product-title">'.get_the_title( $upsell).'</span></p>';
+                                echo '<p><span class="config-name product-title">'.$productObject->get_name().'</span></p>';
                             }
                             echo '<span class="config-price">'.$productObject->get_price_html().'</span>';
                         echo '</div>';
